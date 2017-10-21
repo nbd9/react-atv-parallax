@@ -18,7 +18,7 @@ if (process.env.NODE_ENV === 'production') {
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify('production')
       }),
-      new webpack.UglifyJsPlugin({
+      new webpack.optimize.UglifyJsPlugin({
         sourceMap: true,
         minimize: true,
         compress: { warnings: false },
