@@ -160,8 +160,7 @@ export default createClass({
                  ...style.root,
                  ...(this.props.style ? this.props.style : {}),
                  ...this.state.layers[idx]
-               },
-               className: `${child.props.className} ${this.props.className || ''}`
+               }
              }))
         })}
       </div>
@@ -179,8 +178,7 @@ export default createClass({
           style={{
             ...style.root,
             ...(this.props.style ? this.props.style : {})
-          }}
-          className={this.props.className || ''}>
+          }}>
           {this.props.children}
         </div>
       )
@@ -199,7 +197,6 @@ export default createClass({
         onTouchMove={this.handleTouchMove}
         onTouchStart={this.handleEnter}
         onTouchEnd={this.handleLeave}
-        className={this.props.className || ''}
         ref={node => (this.root = node)}>
         <div style={{...style.container, ...this.state.container}}>
           {this.renderShadow()}
