@@ -7,8 +7,6 @@
     "clean": "rimraf lib dist",
     "build": "NODE_ENV=production babel src --out-dir lib",
     "lint": "standard src",
-    "test": "NODE_ENV=test mocha 'no test'",
-    "test:watch": "NODE_ENV=test mocha --watch",
     "prepublish": "npm run lint && npm run test && npm run clean && npm run build",
     "dev": "NODE_ENV=development node devServer.js",
     "build:static": "NODE_ENV=production webpack && cp ./example/index.html ./dist/index.html"
