@@ -5,13 +5,6 @@ export default {
     WebkitTapHighlightColor: 'rgba(#000, 0)'
   },
 
-  staticFallback: {
-    maxWidth: '100%',
-    maxHeight: '100%',
-    borderRadius: 5,
-    boxShadow: '0 2px 8px rgba(14, 21, 47, 0.25)'
-  },
-
   container: {
     position: 'relative',
     width: '100%',

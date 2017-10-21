@@ -25,7 +25,6 @@ render(
         'img/4.png',
         'img/5.png'
       ]}
-      staticFallback='http://kloc.pm/images/kloc-icon-flattened.jpg'
       style={{ width: 320, height: 500 }}
     />
   </div>,

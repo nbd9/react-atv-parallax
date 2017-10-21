@@ -8,7 +8,6 @@ export default createClass({
   propTypes: {
     layers: PropTypes.arrayOf(PropTypes.string),
     isStatic: PropTypes.bool,
-    staticFallback: PropTypes.string,
     className: PropTypes.string,
     style: PropTypes.object,
     children: PropTypes.node
@@ -182,7 +181,6 @@ export default createClass({
             ...(this.props.style ? this.props.style : {})
           }}
           className={this.props.className || ''}>
-          <img style={style.staticFallback} src={this.props.staticFallback} />
           {this.props.children}
         </div>
       )
