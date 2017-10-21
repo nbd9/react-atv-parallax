@@ -8,7 +8,6 @@ export default createClass({
   propTypes: {
     layers: PropTypes.arrayOf(PropTypes.string),
     isStatic: PropTypes.bool,
-    className: PropTypes.string,
     style: PropTypes.object,
     children: PropTypes.node
   },
