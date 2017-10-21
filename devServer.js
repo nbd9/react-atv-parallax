@@ -15,6 +15,8 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 app.use(require('webpack-hot-middleware')(compiler))
 
+app.use(express.static(path.join(__dirname, 'example/static')))
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'example', 'index.html'))
 })
@@ -24,6 +26,5 @@ app.listen(3000, '0.0.0.0', (err) => {
     console.log(err)
     return
   }
-
   console.log('Listening at http://0.0.0.0:3000')
 })
