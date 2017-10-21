@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from 'react-dom'
 
-import AtvImg from 'react-atv-img'
+import ATVParallax from 'react-atv-parallax'
 
 const rootDivStyle = {
   position: 'absolute',
@@ -17,13 +17,16 @@ const rootDivStyle = {
 
 render(
   <div style={rootDivStyle}>
-    <AtvImg
+    <ATVParallax
       layers={[
-        'http://kloc.pm/images/back.png',
-        'http://kloc.pm/images/front.png'
+        'img/1.png',
+        'img/2.png',
+        'img/3.png',
+        'img/4.png',
+        'img/5.png'
       ]}
       staticFallback='http://kloc.pm/images/kloc-icon-flattened.jpg'
-      style={{ width: 320, height: 190 }}
+      style={{ width: 320, height: 500 }}
     />
   </div>,
   document.getElementById('root')
