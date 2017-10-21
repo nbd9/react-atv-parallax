@@ -17,16 +17,13 @@ const rootDivStyle = {
 
 render(
   <div style={rootDivStyle}>
-    <ATVParallax
-      layers={[
-        'img/1.png',
-        'img/2.png',
-        'img/3.png',
-        'img/4.png',
-        'img/5.png'
-      ]}
-      style={{ width: 320, height: 500 }}
-    />
+    <ATVParallax style={{ width: 320, height: 500 }}>
+      <img src='img/1.png'/>
+      <img src='img/2.png'/>
+      <img src='img/3.png'/>
+      <img src='img/4.png'/>
+      <img src='img/5.png'/>
+    </ATVParallax>
   </div>,
   document.getElementById('root')
 )

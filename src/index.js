@@ -6,7 +6,6 @@ import style from './style'
 
 export default createClass({
   propTypes: {
-    layers: PropTypes.arrayOf(PropTypes.string),
     isStatic: PropTypes.bool,
     style: PropTypes.object,
     children: PropTypes.node
@@ -24,20 +23,18 @@ export default createClass({
   },
 
   componentDidMount () {
-    if (!this.props.isStatic) {
-      this.setState({
-        // eslint-disable-line react/no-did-mount-set-state
-        // this is a legit use case. we must trigger a re-render. don't worry.
-        rootElemWidth:
-          this.root.clientWidth ||
-            this.root.offsetWidth ||
-            this.root.scrollWidth,
-        rootElemHeight:
-          this.root.clientHeight ||
-            this.root.offsetHeight ||
-            this.root.scrollHeight
-      })
-    }
+    this.setState({
+      // eslint-disable-line react/no-did-mount-set-state
+      // this is a legit use case. we must trigger a re-render. don't worry.
+      rootElemWidth:
+        this.root.clientWidth ||
+          this.root.offsetWidth ||
+          this.root.scrollWidth,
+      rootElemHeight:
+        this.root.clientHeight ||
+          this.root.offsetHeight ||
+          this.root.scrollHeight
+    })
   },
 
   handleMove ({pageX, pageY}) {
@@ -110,15 +107,17 @@ export default createClass({
     })
   },
 
-  allLayers () {
-    let layers = this.props.layers || []
+  handleStaticEvent () {
+    // do nothing
+  },
 
+  allLayers () {
+    let layers = []
     if (typeof this.props.children === 'object') {
       layers = this.props.children.constructor === Array
       ? layers.concat(this.props.children)
       : layers.concat([this.props.children])
     }
-
     return layers
   },
 
@@ -139,28 +138,18 @@ export default createClass({
     return (
       <div style={style.layers}>
         {allLayers && allLayers.map((layer, idx) => {
-          if (typeof layer === 'string') {
-            return (
-              <div
-                style={{
-                  backgroundImage: `url(${layer})`,
-                  ...style.renderedLayer,
-                  ...(this.state.layers[idx] ? this.state.layers[idx] : {})
-                }}
-                key={idx}
-               />
-            )
-          }
-
           return React.Children.map(layer,
              child => React.cloneElement(child, {
                style: {
                  ...child.props.style,
                  ...style.root,
                  ...(this.props.style ? this.props.style : {}),
-                 ...this.state.layers[idx]
-               }
-             }))
+                 ...style.renderedLayer,
+                 ...(this.state.layers[idx] ? this.state.layers[idx] : {})
+               },
+               key: idx
+            })
+          )
         })}
       </div>
     )
@@ -171,18 +160,6 @@ export default createClass({
   },
 
   render () {
-    if (this.props.isStatic) {
-      return (
-        <div
-          style={{
-            ...style.root,
-            ...(this.props.style ? this.props.style : {})
-          }}>
-          {this.props.children}
-        </div>
-      )
-    }
-
     return (
       <div
         style={{
@@ -190,12 +167,12 @@ export default createClass({
           transform: `perspective(${this.state.rootElemWidth * 3}px)`,
           ...(this.props.style ? this.props.style : {})
         }}
-        onMouseMove={this.handleMove}
-        onMouseEnter={this.handleEnter}
-        onMouseLeave={this.handleLeave}
-        onTouchMove={this.handleTouchMove}
-        onTouchStart={this.handleEnter}
-        onTouchEnd={this.handleLeave}
+        onMouseMove={!this.props.isStatic ? this.handleMove : this.handleStaticEvent }
+        onMouseEnter={!this.props.isStatic ? this.handleEnter : this.handleStaticEvent }
+        onMouseLeave={!this.props.isStatic ? this.handleLeave : this.handleStaticEvent }
+        onTouchMove={!this.props.isStatic ? this.handleTouchMove : this.handleStaticEvent }
+        onTouchStart={!this.props.isStatic ? this.handleEnter : this.handleStaticEvent }
+        onTouchEnd={!this.props.isStatic ? this.handleLeave : this.handleStaticEvent }
         ref={node => (this.root = node)}>
         <div style={{...style.container, ...this.state.container}}>
           {this.renderShadow()}
