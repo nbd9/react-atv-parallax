@@ -1,5 +1,5 @@
 # react-atv-parallax
-Port of [@drewwilson](https://github.com/drewwilson)’s [atvImg](https://github.com/drewwilson/atvImg) for React. It supports both touch and mouse events. Example was assembled from [Designmodo](https://designmodo.com/apple-tv-effect/).
+Port of [@drewwilson](https://github.com/drewwilson)’s [atvImg](https://github.com/drewwilson/atvImg) for React. It supports both touch and mouse events, and uses ReactDOM for layers. Example was assembled from [Designmodo](https://designmodo.com/apple-tv-effect/). 
 
 ## Install
 `npm install --save react-atv-parallax`
