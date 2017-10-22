@@ -141,11 +141,11 @@ export default createClass({
           return React.Children.map(layer,
              child => React.cloneElement(child, {
                style: {
-                 ...child.props.style,
                  ...style.root,
                  ...(this.props.style ? this.props.style : {}),
                  ...style.renderedLayer,
-                 ...(this.state.layers[idx] ? this.state.layers[idx] : {})
+                 ...(this.state.layers[idx] ? this.state.layers[idx] : {}),
+                 ...child.props.style
                },
                key: idx
             })

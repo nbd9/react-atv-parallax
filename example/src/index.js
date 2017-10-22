@@ -23,6 +23,22 @@ render(
       <img src='img/3.png'/>
       <img src='img/4.png'/>
       <img src='img/5.png'/>
+      <div>
+        <div style={{
+          position: "relative",
+          top: "80%",
+          height: "20%",
+          width: "100%",
+          display: "table"
+        }}>
+          <span style={{
+            fontSize: "3rem",
+            display: "table-cell",
+            textAlign: "center",
+            verticalAlign: "middle"
+          }}>🍿🚀👽</span>
+        </div>
+      </div>
     </ATVParallax>
   </div>,
   document.getElementById('root')
