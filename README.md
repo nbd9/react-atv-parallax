@@ -1,21 +1,21 @@
-# react-atv-img
-A port of [@drewwilson](https://github.com/drewwilson)’s amazing [atvImg](https://github.com/drewwilson/atvImg) (Apple TV 3D parallax effect) library in React. It supports both touch and mouse events.
+# react-atv-parallax
+Port of [@drewwilson](https://github.com/drewwilson)’s [atvImg](https://github.com/drewwilson/atvImg) for React. It supports both touch and mouse events. Example was assembled from [Designmodo](https://designmodo.com/apple-tv-effect/).
 
 ## Install
-`npm install --save react-atv-img`
+`npm install --save react-atv-parallax`
 
 ## Demo
-[http://keyanzhang.github.io/react-atv-img](http://keyanzhang.github.io/react-atv-img)
+[http://danielsinclair.github.io/react-atv-parallax/](http://danielsinclair.github.io/react-atv-parallax/)
 
-![GIF](http://i.imgur.com/XxLKcTW.gif)
+![GIF](doc/parallax-demo.gif)
 
 Or run it locally:
 
 ```
-git clone https://github.com/keyanzhang/react-atv-img/
-cd react-atv-img
+git clone https://github.com/DanielSinclair/react-atv-parallax
+cd react-atv-parallax
 npm install
-npm run example
+npm run dev
 ```
 
 Then navigate to [http://localhost:3000/](http://localhost:3000/)
@@ -25,38 +25,29 @@ Then navigate to [http://localhost:3000/](http://localhost:3000/)
 
 ``` javascript
 static propTypes = {
-  layers: PropTypes.arrayOf(PropTypes.string).isRequired,
   isStatic: PropTypes.bool,
-  staticFallback: PropTypes.string,
-  className: PropTypes.string,
   style: PropTypes.object,
+  children: PropTypes.node
 };
 ```
 
-#### Data
-- `layers`: Required. An array of image URLs. The images will be stacked on top of each other and the _last_ element will be at the top.
-- `isStatic`: Optional. A boolean value. When it evaluates to `true`, it disables the parallax effect, and shows the flattened image (`staticFallback`) instead.
-- `staticFallback`: Optional. A flattened image that contains all the layers.
+`isStatic`: Optional. A boolean value. When it evaluates to `true`, it disables the parallax effect, and shows the flattened component.
+`style`: Optional. Set up the width/height of the entire component.
+`children`: Required. Equates the child dom elements as layers. Ordered: background to foreground.
 
-#### Styling: use the following options to set up the width/height of the entire component
-- `className`: Optional.
-- `style`: Optional.
 
 ### Example
 
 ``` javascript
-import AtvImg from 'react-atv-img';
+import ATVParallax from 'react-atv-parallax';
 
-<AtvImg
-  layers={[
-    'http://kloc.pm/images/back.png',
-    'http://kloc.pm/images/front.png',
-  ]}
-  staticFallback="http://kloc.pm/images/kloc-icon-flattened.jpg"
-  isStatic={false}
-  className={'thisIsOptional'}
-  style={{ width: 320, height: 190 }}
-/>
+<ATVParallax style={{ width: 320, height: 190 }}>
+  <img src='img/1.png'/>
+  <img src='img/2.png'/>
+  <div style={{ ... }}>
+    <span>Floating Title</span>
+  </div>
+</ATVParallax>
 ```
 
 ## License
