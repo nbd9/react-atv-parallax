@@ -1,47 +1,53 @@
-import createClass from 'create-react-class'
-import PropTypes from 'prop-types'
-import React from 'react'
+import * as React from 'react'
+import style from './style'
 
-import style from './style.js'
+interface Props {
+  isStatic?: boolean,
+  style?: object,
+  children?: JSX.Element[]
+}
 
-export default createClass({
-  propTypes: {
-    isStatic: PropTypes.bool,
-    style: PropTypes.object,
-    children: PropTypes.node
-  },
+interface State {
+  rootElemWidth: number,
+  rootElemHeight: number,
+  isOnHover: boolean,
+  container: object,
+  shine: object,
+  layers: any
+}
 
-  getInitialState () {
-    return {
-      rootElemWidth: 0,
-      rootElemHeight: 0,
-      isOnHover: false,
-      container: {},
-      shine: {},
-      layers: []
-    }
-  },
+export default class AtvParallax extends React.Component<Props, State> {
+  state = {
+    rootElemWidth: 0,
+    rootElemHeight: 0,
+    isOnHover: false,
+    container: {},
+    shine: {},
+    layers: []
+  }
 
-  componentDidMount () {
-    this.setState({
-      // eslint-disable-line react/no-did-mount-set-state
-      // this is a legit use case. we must trigger a re-render. don't worry.
-      rootElemWidth:
-        this.root.clientWidth ||
+  private root: HTMLDivElement;
+
+  componentDidMount() {
+      this.setState({
+        // eslint-disable-line react/no-did-mount-set-state
+        // this is a legit use case. we must trigger a re-render. don't worry.
+        rootElemWidth:
+          this.root.clientWidth ||
           this.root.offsetWidth ||
           this.root.scrollWidth,
-      rootElemHeight:
-        this.root.clientHeight ||
+        rootElemHeight:
+          this.root.clientHeight ||
           this.root.offsetHeight ||
           this.root.scrollHeight
-    })
-  },
+      })
+  }
 
-  handleMove ({pageX, pageY}) {
+  handleMove = ({ pageX, pageY }) => {
     const allLayers = this.allLayers()
     const layerCount = allLayers ? this.allLayers.length : 0 // the number of layers
 
-    const {rootElemWidth, rootElemHeight} = this.state
+    const { rootElemWidth, rootElemHeight } = this.state
 
     const bodyScrollTop =
       document.body.scrollTop ||
@@ -67,7 +73,7 @@ export default createClass({
       container: {
         transform:
           `rotateX(${xRotate}deg) rotateY(${yRotate}deg)` +
-            (this.state.isOnHover ? ' scale3d(1.07,1.07,1.07)' : '')
+          (this.state.isOnHover ? ' scale3d(1.07,1.07,1.07)' : '')
       },
       shine: {
         background: `linear-gradient(${angle}deg, rgba(255, 255, 255, ${(pageY -
@@ -86,42 +92,42 @@ export default createClass({
           (idx * 2.5 / wMultiple)}px)`
       }))
     })
-  },
+  }
 
-  handleTouchMove (evt) {
+  handleTouchMove = (evt) => {
     evt.preventDefault()
-    const {pageX, pageY} = evt.touches[0]
-    this.handleMove({pageX, pageY})
-  },
+    const { pageX, pageY } = evt.touches[0]
+    this.handleMove({ pageX, pageY })
+  }
 
-  handleEnter () {
-    this.setState({isOnHover: true})
-  },
+  handleEnter = () => {
+    this.setState({ isOnHover: true })
+  }
 
-  handleLeave () {
+  handleLeave = () => {
     this.setState({
       isOnHover: false,
       container: {},
       shine: {},
       layers: []
     })
-  },
+  }
 
-  handleStaticEvent () {
+  handleStaticEvent = () => {
     // do nothing
-  },
+  }
 
-  allLayers () {
+  allLayers = () => {
     let layers = []
     if (typeof this.props.children === 'object') {
       layers = this.props.children.constructor === Array
-      ? layers.concat(this.props.children)
-      : layers.concat([this.props.children])
+        ? layers.concat(this.props.children)
+        : layers.concat([this.props.children])
     }
     return layers
-  },
+  }
 
-  renderShadow () {
+  renderShadow = () => {
     return (
       <div
         style={{
@@ -130,36 +136,36 @@ export default createClass({
         }}
       />
     )
-  },
+  }
 
-  renderLayers () {
+  renderLayers = () => {
     const allLayers = this.allLayers()
 
     return (
       <div style={style.layers}>
         {allLayers && allLayers.map((layer, idx) => {
           return React.Children.map(layer,
-             child => React.cloneElement(child, {
-               style: {
-                 ...style.root,
-                 ...(this.props.style ? this.props.style : {}),
-                 ...style.renderedLayer,
-                 ...(this.state.layers[idx] ? this.state.layers[idx] : {}),
-                 ...child.props.style
-               },
-               key: idx
+            child => React.cloneElement(child, {
+              style: {
+                ...style.root,
+                ...(this.props.style ? this.props.style : {}),
+                ...style.renderedLayer,
+                ...(this.state.layers[idx] ? this.state.layers[idx] : {}),
+                ...child.props.style
+              },
+              key: idx
             })
           )
         })}
       </div>
     )
-  },
+  }
 
-  renderShine () {
-    return <div style={{...style.shine, ...this.state.shine}} />
-  },
+  renderShine = () => {
+    return <div style={{ ...style.shine, ...this.state.shine }} />
+  }
 
-  render () {
+  render() {
     return (
       <div
         style={{
@@ -167,14 +173,14 @@ export default createClass({
           transform: `perspective(${this.state.rootElemWidth * 3}px)`,
           ...(this.props.style ? this.props.style : {})
         }}
-        onMouseMove={!this.props.isStatic ? this.handleMove : this.handleStaticEvent }
-        onMouseEnter={!this.props.isStatic ? this.handleEnter : this.handleStaticEvent }
-        onMouseLeave={!this.props.isStatic ? this.handleLeave : this.handleStaticEvent }
-        onTouchMove={!this.props.isStatic ? this.handleTouchMove : this.handleStaticEvent }
-        onTouchStart={!this.props.isStatic ? this.handleEnter : this.handleStaticEvent }
-        onTouchEnd={!this.props.isStatic ? this.handleLeave : this.handleStaticEvent }
+        onMouseMove={!this.props.isStatic ? this.handleMove : this.handleStaticEvent}
+        onMouseEnter={!this.props.isStatic ? this.handleEnter : this.handleStaticEvent}
+        onMouseLeave={!this.props.isStatic ? this.handleLeave : this.handleStaticEvent}
+        onTouchMove={!this.props.isStatic ? this.handleTouchMove : this.handleStaticEvent}
+        onTouchStart={!this.props.isStatic ? this.handleEnter : this.handleStaticEvent}
+        onTouchEnd={!this.props.isStatic ? this.handleLeave : this.handleStaticEvent}
         ref={node => (this.root = node)}>
-        <div style={{...style.container, ...this.state.container}}>
+        <div style={{ ...style.container, ...this.state.container }}>
           {this.renderShadow()}
           {this.renderLayers()}
           {this.renderShine()}
@@ -182,4 +188,4 @@ export default createClass({
       </div>
     )
   }
-})
+}

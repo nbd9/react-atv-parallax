@@ -3,23 +3,15 @@
   "version": "1.0.2",
   "description": "Apple TV Parallax Effect for React",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
-    "clean": "rimraf lib dist",
-    "build": "NODE_ENV=production babel src --out-dir lib",
-    "build:static": "NODE_ENV=production webpack && cp ./example/index.html ./dist/index.html",
-    "lint": "standard src",
-    "prepublish": "npm run lint && npm run test && npm run clean && npm run build",
-    "dev": "NODE_ENV=development node devServer.js",
-    "predeploy": "npm run build:static",
-    "deploy": "gh-pages -d dist"
+    "build": "tsc --declaration --outDir lib",
+    "lint": "standard src"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DanielSinclair/react-atv-parallax.git"
+    "url": "git+https://github.com/nbd9/react-atv-parallax.git"
   },
-  "files": [
-    "src"
-  ],
   "keywords": [
     "react",
     "react-component",
@@ -28,41 +20,18 @@
     "parallax",
     "atvImg"
   ],
-  "author": "Daniel Sinclair <d@niel.nyc>",
+  "author": "Nick DeGroot <contact@nbdeg.com>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/DanielSinclair/react-atv-parallax/issues"
-  },
   "homepage": "https://DanielSinclair.github.io/react-atv-parallax",
   "peerDependencies": {
     "react": ">=0.14"
   },
   "devDependencies": {
-    "babel-cli": "~6.24.1",
-    "babel-loader": "~7.0.0",
-    "babel-plugin-react-transform": "~2.0.2",
-    "babel-plugin-transform-object-rest-spread": "~6.23.0",
-    "babel-preset-env": "~1.5.2",
-    "babel-preset-react": "~6.24.1",
-    "babel-preset-react-optimize": "~1.0.1",
-    "babel-register": "~6.24.1",
-    "copy-webpack-plugin": "^4.2.0",
-    "create-react-class": "~15.6.0",
-    "expect": "~1.12.2",
-    "express": "~4.15.3",
-    "gh-pages": "^1.0.0",
-    "mocha": "~3.4.2",
-    "prop-types": "~15.5.10",
+    "@babel/preset-typescript": "^7.3.3",
+    "@types/react": "^16.8.16",
     "react": "~15.6.0",
-    "react-dom": "~15.6.0",
-    "react-transform-catch-errors": "~1.0.0",
-    "react-transform-hmr": "~1.0.0",
-    "redbox-react": "~1.4.2",
-    "rimraf": "~2.6.1",
     "standard": "~10.0.2",
     "standard-markdown": "~4.0.1",
-    "webpack": "~2.6.1",
-    "webpack-dev-middleware": "~1.10.2",
-    "webpack-hot-middleware": "~2.18.0"
+    "typescript": "^3.4.5"
   }
 }
