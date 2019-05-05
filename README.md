@@ -9,7 +9,7 @@ Apple TV cards for React. Now in Typescript!
 ## Demo
 [http://danielsinclair.github.io/react-atv-parallax/](http://danielsinclair.github.io/react-atv-parallax/)
 
-![GIF](doc/parallax-demo.gif)
+![GIF](.github/parallax-demo.gif)
 
 ## API
 Layers are ordered by children order background to foreground.
